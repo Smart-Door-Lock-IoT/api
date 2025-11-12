@@ -1,0 +1,10 @@
+services:
+  database:
+    image: postgres:17.5-alpine3.22
+    ports:
+      - "15432:5432"
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - TZ=Asia/Jakarta
+      - PGTZ=Asia/Jakarta

@@ -1,0 +1,24 @@
+FROM golang:1.24.5-alpine3.22 AS builder
+
+WORKDIR /app
+
+COPY go.mod .
+COPY go.sum .
+
+RUN go mod download
+
+COPY . .
+
+RUN go build -o api ./cmd/api
+
+FROM alpine:3.22
+
+RUN apk add --no-cache tzdata
+
+WORKDIR /app
+
+COPY --from=builder /app/api .
+
+EXPOSE 8080
+
+ENTRYPOINT ["./api"]
