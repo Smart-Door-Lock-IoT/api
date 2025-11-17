@@ -11,7 +11,11 @@ import (
 	"github.com/Smart-Door-Lock-IoT/api/features/configuration/injector"
 	"github.com/Smart-Door-Lock-IoT/api/features/configuration/repositories"
 	"github.com/Smart-Door-Lock-IoT/api/features/configuration/services"
+	handlers2 "github.com/Smart-Door-Lock-IoT/api/features/control/handlers"
+	injector2 "github.com/Smart-Door-Lock-IoT/api/features/control/injector"
+	services2 "github.com/Smart-Door-Lock-IoT/api/features/control/services"
 	"github.com/Smart-Door-Lock-IoT/api/pkg/database"
+	"github.com/Smart-Door-Lock-IoT/api/pkg/mqtt"
 )
 
 // Injectors from handlers.go:
@@ -23,4 +27,12 @@ func InitConfigurationHandlers() *injector.ConfigurationHandlers {
 	handlersPin := handlers.NewPin(pin)
 	configurationHandlers := injector.NewConfigurationHandlers(handlersPin)
 	return configurationHandlers
+}
+
+func InitControlHandlers() *injector2.ControlHandlers {
+	client := mqtt.New()
+	control := services2.NewControl(client)
+	handlersControl := handlers2.NewControl(control)
+	controlHandlers := injector2.NewControlHandlers(handlersControl)
+	return controlHandlers
 }

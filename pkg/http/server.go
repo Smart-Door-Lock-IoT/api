@@ -3,6 +3,7 @@ package http
 import (
 	_ "github.com/Smart-Door-Lock-IoT/api/docs"
 	"github.com/Smart-Door-Lock-IoT/api/features/configuration"
+	"github.com/Smart-Door-Lock-IoT/api/features/control"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 
@@ -24,6 +25,7 @@ func NewServer() {
 	v1 := router.Group("/api/v1")
 
 	configuration.RegisterConfiguration(v1)
+	control.RegisterControl(v1)
 
 	// swagger
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
