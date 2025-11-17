@@ -1,8 +1,11 @@
 package http
 
 import (
+	_ "github.com/Smart-Door-Lock-IoT/api/docs"
+	"github.com/Smart-Door-Lock-IoT/api/features/configuration"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -17,6 +20,10 @@ func NewServer() {
 	corsConfig.AllowHeaders = []string{"Origin", "Content-Type", "Authorization"}
 	corsConfig.AllowCredentials = true
 	router.Use(cors.New(corsConfig))
+
+	v1 := router.Group("/api/v1")
+
+	configuration.RegisterConfiguration(v1)
 
 	// swagger
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))

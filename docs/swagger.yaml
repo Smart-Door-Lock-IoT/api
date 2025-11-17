@@ -1,0 +1,60 @@
+definitions:
+  ChangePinRequest:
+    properties:
+      new_pin:
+        type: string
+    type: object
+  ChangePinResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  ValidatePinRequest:
+    properties:
+      pin:
+        type: string
+    type: object
+  ValidatePinResponse:
+    properties:
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+  title: API Smart Door Lock IoT
+  version: "1.0"
+paths:
+  /api/v1/configuration/pin:
+    post:
+      operationId: ValidatePin
+      parameters:
+      - description: body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/ValidatePinRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ValidatePinResponse'
+      tags:
+      - Configuration
+    put:
+      operationId: ChangePin
+      parameters:
+      - description: body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/ChangePinRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ChangePinResponse'
+      tags:
+      - Configuration
+swagger: "2.0"

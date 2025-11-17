@@ -8,6 +8,8 @@ import (
 	"github.com/joho/godotenv"
 )
 
+// @title 		API Smart Door Lock IoT
+// @version 	1.0
 func main() {
 	appEnv := os.Getenv("APP_ENV")
 	if appEnv == "" {

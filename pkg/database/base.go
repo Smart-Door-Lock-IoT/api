@@ -5,6 +5,7 @@ import (
 	"os"
 	"sync"
 
+	configuration "github.com/Smart-Door-Lock-IoT/api/features/configuration/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -13,7 +14,9 @@ var (
 	dbInstance *gorm.DB
 	dbOnce     sync.Once
 
-	Tables = []interface{}{}
+	Tables = []interface{}{
+		&configuration.Config{},
+	}
 )
 
 func New() *gorm.DB {

@@ -1,3 +1,4 @@
+name: api-smart-door-lock
 services:
   database:
     image: postgres:17.5-alpine3.22
@@ -6,5 +7,6 @@ services:
     environment:
       - POSTGRES_USER=root
       - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_DB=smart_door_lock
       - TZ=Asia/Jakarta
       - PGTZ=Asia/Jakarta
