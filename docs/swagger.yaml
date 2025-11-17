@@ -9,6 +9,21 @@ definitions:
       message:
         type: string
     type: object
+  TriggerFingerprintModeResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  TriggerOpenDoorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  TriggerRFIDModeResponse:
+    properties:
+      message:
+        type: string
+    type: object
   ValidatePinRequest:
     properties:
       pin:
@@ -57,4 +72,34 @@ paths:
             $ref: '#/definitions/ChangePinResponse'
       tags:
       - Configuration
+  /api/v1/control/fingerprint-mode:
+    post:
+      operationId: TriggerFingerprintMode
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/TriggerFingerprintModeResponse'
+      tags:
+      - Control
+  /api/v1/control/open-door:
+    post:
+      operationId: TriggerOpenDoor
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/TriggerOpenDoorResponse'
+      tags:
+      - Control
+  /api/v1/control/rfid-mode:
+    post:
+      operationId: TriggerRFIDMode
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/TriggerRFIDModeResponse'
+      tags:
+      - Control
 swagger: "2.0"
