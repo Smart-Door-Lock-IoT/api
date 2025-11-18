@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	configuration "github.com/Smart-Door-Lock-IoT/api/features/configuration/models"
+	log "github.com/Smart-Door-Lock-IoT/api/features/control/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -16,6 +17,7 @@ var (
 
 	Tables = []interface{}{
 		&configuration.Config{},
+		&log.Log{},
 	}
 )
 

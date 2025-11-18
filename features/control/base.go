@@ -10,4 +10,5 @@ func RegisterControl(g *gin.RouterGroup) {
 	handlers := injector.InitControlHandlers()
 
 	routes.RegisterControl(g, handlers.Control)
+	routes.RegisterLog(g, handlers.Log)
 }

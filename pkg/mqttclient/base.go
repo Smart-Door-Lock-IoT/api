@@ -1,4 +1,4 @@
-package mqtt
+package mqttclient
 
 import (
 	"fmt"
@@ -13,10 +13,6 @@ var (
 	mqttInstance *mqtt.Client
 	mqttOnce     sync.Once
 )
-
-func messageHandler(c mqtt.Client, m mqtt.Message) {
-	fmt.Println("Received message: ", string(m.Payload()), " from topic: ", m.Topic())
-}
 
 func New() *mqtt.Client {
 	mqttOnce.Do(
@@ -41,14 +37,6 @@ func New() *mqtt.Client {
 				panic("failed to connect to MQTT broker")
 			} else {
 				fmt.Println("Connected to MQTT broker")
-			}
-
-			if token := client.Subscribe(
-				"smart-door-lock-iot/#", 2, messageHandler,
-			); token.WaitTimeout(time.Second*5) && token.Error() != nil {
-				panic("failed to subscribe to topic: " + token.Error().Error())
-			} else {
-				fmt.Println("Subscribed to topic: smart-door-lock-iot/#")
 			}
 
 			mqttInstance = &client

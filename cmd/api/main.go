@@ -2,9 +2,11 @@ package main
 
 import (
 	"os"
+	"time"
 
 	"github.com/Smart-Door-Lock-IoT/api/pkg/http"
-	"github.com/Smart-Door-Lock-IoT/api/pkg/mqtt"
+	"github.com/Smart-Door-Lock-IoT/api/pkg/mqttclient"
+	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"github.com/joho/godotenv"
 )
 
@@ -23,7 +25,20 @@ func main() {
 	}
 
 	go func() {
-		mqtt.New()
+		client := mqttclient.New()
+
+		// subscribe log activities
+		if token := (*client).Subscribe(
+			"smart-door-lock-iot/log-activities",
+			2,
+			func(c mqtt.Client, m mqtt.Message) {
+				println("Log Activity: ", string(m.Payload()))
+			},
+		); token.WaitTimeout(time.Second*5) && token.Error() != nil {
+			panic("failed to subscribe to log activities topic: " + token.Error().Error())
+		} else {
+			println("Subscribed to log activities topic")
+		}
 	}()
 
 	http.NewServer()
