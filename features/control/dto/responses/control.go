@@ -4,6 +4,10 @@ type TriggerOpenDoorResponse struct {
 	Message string `json:"message"`
 } // @name TriggerOpenDoorResponse
 
+type TriggerBuzzerAlarmResponse struct {
+	Message string `json:"message"`
+} // @name TriggerBuzzerAlarmResponse
+
 type TriggerFingerprintModeResponse struct {
 	Message string `json:"message"`
 } // @name TriggerFingerprintModeResponse

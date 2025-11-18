@@ -67,6 +67,22 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/control/buzzer-alarm": {
+            "post": {
+                "tags": [
+                    "Control"
+                ],
+                "operationId": "TriggerBuzzerAlarm",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/TriggerBuzzerAlarmResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/control/fingerprint-mode": {
             "post": {
                 "tags": [
@@ -126,6 +142,14 @@ const docTemplate = `{
             }
         },
         "ChangePinResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "TriggerBuzzerAlarmResponse": {
             "type": "object",
             "properties": {
                 "message": {

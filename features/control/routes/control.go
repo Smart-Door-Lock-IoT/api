@@ -10,6 +10,7 @@ func RegisterControl(g *gin.RouterGroup, handler *handlers.Control) {
 
 	group := g.Group(relativePath)
 	group.POST("/open-door", handler.TriggerOpenDoor)
+	group.POST("/buzzer-alarm", handler.TriggerBuzzerAlarm)
 	group.POST("/fingerprint-mode", handler.TriggerFingerprintMode)
 	group.POST("/rfid-mode", handler.TriggerRFIDMode)
 }

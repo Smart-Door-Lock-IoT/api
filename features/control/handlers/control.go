@@ -34,6 +34,22 @@ func (h *Control) TriggerOpenDoor(c *gin.Context) {
 	}
 }
 
+// @id 			TriggerBuzzerAlarm
+// @tags 		Control
+// @success 	200 {object} responses.TriggerBuzzerAlarmResponse
+// @router 		/api/v1/control/buzzer-alarm [post]
+func (h *Control) TriggerBuzzerAlarm(c *gin.Context) {
+	if res, err := h.service.TriggerBuzzerAlarm(); err != nil {
+		c.AbortWithStatusJSON(
+			err.Code, httpresponses.Error{
+				Message: err.Message,
+			},
+		)
+	} else {
+		c.JSON(http.StatusOK, res)
+	}
+}
+
 // @id 			TriggerFingerprintMode
 // @tags 		Control
 // @success 	200 {object} responses.TriggerFingerprintModeResponse

@@ -33,6 +33,21 @@ func (s *Control) TriggerOpenDoor() (*responses.TriggerOpenDoorResponse, *httput
 	}
 }
 
+func (s *Control) TriggerBuzzerAlarm() (*responses.TriggerBuzzerAlarmResponse, *httputils.Error) {
+	if token := (*s.mqttClient).Publish(
+		"smart-door-lock-iot/buzzer-alarm",
+		2,
+		false,
+		"triggered",
+	); token.WaitTimeout(time.Second*5) && token.Error() != nil {
+		return nil, httputils.NewInternalError(token.Error())
+	} else {
+		return &responses.TriggerBuzzerAlarmResponse{
+			Message: "oke",
+		}, nil
+	}
+}
+
 func (s *Control) TriggerFingerprintMode() (
 	*responses.TriggerFingerprintModeResponse, *httputils.Error,
 ) {

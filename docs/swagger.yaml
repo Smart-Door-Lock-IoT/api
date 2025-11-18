@@ -9,6 +9,11 @@ definitions:
       message:
         type: string
     type: object
+  TriggerBuzzerAlarmResponse:
+    properties:
+      message:
+        type: string
+    type: object
   TriggerFingerprintModeResponse:
     properties:
       message:
@@ -72,6 +77,16 @@ paths:
             $ref: '#/definitions/ChangePinResponse'
       tags:
       - Configuration
+  /api/v1/control/buzzer-alarm:
+    post:
+      operationId: TriggerBuzzerAlarm
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/TriggerBuzzerAlarmResponse'
+      tags:
+      - Control
   /api/v1/control/fingerprint-mode:
     post:
       operationId: TriggerFingerprintMode
