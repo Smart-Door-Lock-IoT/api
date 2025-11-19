@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/Smart-Door-Lock-IoT/api/features/control/dto/requests"
@@ -64,6 +65,7 @@ func (h *Control) TriggerFingerprintMode(c *gin.Context) {
 	}
 
 	if res, err := h.service.TriggerFingerprintMode(req); err != nil {
+		fmt.Println(err.Err)
 		c.AbortWithStatusJSON(
 			err.Code, httpresponses.Error{
 				Message: err.Message,
@@ -87,6 +89,7 @@ func (h *Control) TriggerRFIDMode(c *gin.Context) {
 	}
 
 	if res, err := h.service.TriggerRFIDMode(req); err != nil {
+		fmt.Println(err.Err)
 		c.AbortWithStatusJSON(
 			err.Code, httpresponses.Error{
 				Message: err.Message,

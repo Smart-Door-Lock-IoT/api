@@ -1,6 +1,7 @@
 package services
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/Smart-Door-Lock-IoT/api/features/control/dto/requests"
@@ -56,7 +57,7 @@ func (s *Control) TriggerFingerprintMode(req requests.TriggerFingerprintModeRequ
 		"smart-door-lock-iot/fingerprint-mode",
 		2,
 		false,
-		req.Slot,
+		fmt.Sprintf("%d", req.Slot),
 	); token.WaitTimeout(time.Second*5) && token.Error() != nil {
 		return nil, httputils.NewInternalError(token.Error())
 	} else {
@@ -73,7 +74,7 @@ func (s *Control) TriggerRFIDMode(req requests.TriggerRFIDModeRequest) (
 		"smart-door-lock-iot/rfid-mode",
 		2,
 		false,
-		req.Slot,
+		fmt.Sprintf("%d", req.Slot),
 	); token.WaitTimeout(time.Second*5) && token.Error() != nil {
 		return nil, httputils.NewInternalError(token.Error())
 	} else {
