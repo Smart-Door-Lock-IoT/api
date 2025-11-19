@@ -66,7 +66,7 @@ func (h *Log) GetAllLatestLogs(c *gin.Context) {
 // @success 	200 {object} responses.DeleteAllLogsResponse
 // @router 		/api/v1/control/logs [delete]
 func (h *Log) DeleteAllLogs(c *gin.Context) {
-	if res, err := h.service.GetAllLogs(); err != nil {
+	if res, err := h.service.DeleteAllLogs(); err != nil {
 		c.AbortWithStatusJSON(
 			err.Code, httpresponses.Error{
 				Message: err.Message,
