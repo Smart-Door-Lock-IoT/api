@@ -37,6 +37,16 @@ func (s *Log) GetAllLogs() (*responses.GetAllLogsResponse, *httputils.Error) {
 	}
 }
 
+func (s *Log) GetAllLatestLogs() (*responses.GetAllLatestLogsResponse, *httputils.Error) {
+	if res, err := s.logRepo.GetAllLatest(); err != nil {
+		return nil, httputils.NewInternalError(err)
+	} else {
+		return &responses.GetAllLatestLogsResponse{
+			Logs: *res,
+		}, nil
+	}
+}
+
 func (s *Log) DeleteAllLogs() (*responses.DeleteAllLogsResponse, *httputils.Error) {
 	if err := s.logRepo.DeleteAll(); err != nil {
 		return nil, httputils.NewInternalError(err)

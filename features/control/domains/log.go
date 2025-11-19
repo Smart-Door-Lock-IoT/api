@@ -1,13 +1,16 @@
 package domains
 
 import (
+	"time"
+
 	"github.com/Smart-Door-Lock-IoT/api/features/control/models"
 )
 
 type Log struct {
-	Id         uint   `json:"id"`
-	DeviceName string `json:"device_name"`
-	Status     bool   `json:"status"`
+	Id         uint      `json:"id"`
+	DeviceName string    `json:"device_name"`
+	Status     bool      `json:"status"`
+	CreatedAt  time.Time `json:"created_at"`
 }
 
 func (l *Log) ToModel() *models.Log {
@@ -22,5 +25,6 @@ func FromLogModel(m *models.Log) *Log {
 		Id:         m.ID,
 		DeviceName: m.DeviceName,
 		Status:     m.Status,
+		CreatedAt:  m.CreatedAt,
 	}
 }

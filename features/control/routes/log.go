@@ -10,5 +10,6 @@ func RegisterLog(g *gin.RouterGroup, handler *handlers.Log) {
 
 	group := g.Group(relativePath)
 	group.GET("", handler.GetAllLogs)
+	group.GET("/latest", handler.GetAllLatestLogs)
 	group.DELETE("", handler.DeleteAllLogs)
 }

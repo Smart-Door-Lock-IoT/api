@@ -38,6 +38,19 @@ func (r *Log) GetAll() (*[]domains.Log, error) {
 	}
 }
 
+func (r *Log) GetAllLatest() (*[]domains.Log, error) {
+	var logs []models.Log
+	if err := r.db.Order("created_at desc").Limit(5).Find(&logs).Error; err != nil {
+		return nil, err
+	} else {
+		result := make([]domains.Log, len(logs))
+		for i, log := range logs {
+			result[i] = *domains.FromLogModel(&log)
+		}
+		return &result, nil
+	}
+}
+
 func (r *Log) DeleteAll() error {
 	return r.db.Delete(&models.Log{}).Error
 }

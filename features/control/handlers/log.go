@@ -45,6 +45,22 @@ func (h *Log) GetAllLogs(c *gin.Context) {
 	}
 }
 
+// @id 			GetAllLatestLogs
+// @tags 		Control
+// @success 	200 {object} responses.GetAllLatestLogsResponse
+// @router 		/api/v1/control/logs/latest [get]
+func (h *Log) GetAllLatestLogs(c *gin.Context) {
+	if res, err := h.service.GetAllLatestLogs(); err != nil {
+		c.AbortWithStatusJSON(
+			err.Code, httpresponses.Error{
+				Message: err.Message,
+			},
+		)
+	} else {
+		c.JSON(http.StatusOK, res)
+	}
+}
+
 // @id 			DeleteAllLogs
 // @tags 		Control
 // @success 	200 {object} responses.DeleteAllLogsResponse

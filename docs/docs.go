@@ -140,6 +140,22 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/control/logs/latest": {
+            "get": {
+                "tags": [
+                    "Control"
+                ],
+                "operationId": "GetAllLatestLogs",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/GetAllLatestLogsResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/control/open-door": {
             "post": {
                 "tags": [
@@ -215,6 +231,20 @@ const docTemplate = `{
             "properties": {
                 "message": {
                     "type": "string"
+                }
+            }
+        },
+        "GetAllLatestLogsResponse": {
+            "type": "object",
+            "required": [
+                "logs"
+            ],
+            "properties": {
+                "logs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/domains.Log"
+                    }
                 }
             }
         },
@@ -323,11 +353,15 @@ const docTemplate = `{
         "domains.Log": {
             "type": "object",
             "required": [
+                "created_at",
                 "device_name",
                 "id",
                 "status"
             ],
             "properties": {
+                "created_at": {
+                    "type": "string"
+                },
                 "device_name": {
                     "type": "string"
                 },
