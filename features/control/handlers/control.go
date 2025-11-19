@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/Smart-Door-Lock-IoT/api/features/control/dto/requests"
 	"github.com/Smart-Door-Lock-IoT/api/features/control/services"
 	httpresponses "github.com/Smart-Door-Lock-IoT/api/pkg/http/responses"
 	"github.com/gin-gonic/gin"
@@ -52,10 +53,17 @@ func (h *Control) TriggerBuzzerAlarm(c *gin.Context) {
 
 // @id 			TriggerFingerprintMode
 // @tags 		Control
+// @param 		body body requests.TriggerFingerprintModeRequest true "body"
 // @success 	200 {object} responses.TriggerFingerprintModeResponse
 // @router 		/api/v1/control/fingerprint-mode [post]
 func (h *Control) TriggerFingerprintMode(c *gin.Context) {
-	if res, err := h.service.TriggerFingerprintMode(); err != nil {
+	var req requests.TriggerFingerprintModeRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.AbortWithStatus(http.StatusBadRequest)
+		return
+	}
+
+	if res, err := h.service.TriggerFingerprintMode(req); err != nil {
 		c.AbortWithStatusJSON(
 			err.Code, httpresponses.Error{
 				Message: err.Message,
@@ -68,10 +76,17 @@ func (h *Control) TriggerFingerprintMode(c *gin.Context) {
 
 // @id 			TriggerRFIDMode
 // @tags 		Control
+// @param 		body body requests.TriggerRFIDModeRequest true "body"
 // @success 	200 {object} responses.TriggerRFIDModeResponse
 // @router 		/api/v1/control/rfid-mode [post]
 func (h *Control) TriggerRFIDMode(c *gin.Context) {
-	if res, err := h.service.TriggerRFIDMode(); err != nil {
+	var req requests.TriggerRFIDModeRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.AbortWithStatus(http.StatusBadRequest)
+		return
+	}
+
+	if res, err := h.service.TriggerRFIDMode(req); err != nil {
 		c.AbortWithStatusJSON(
 			err.Code, httpresponses.Error{
 				Message: err.Message,

@@ -3,6 +3,7 @@ package services
 import (
 	"time"
 
+	"github.com/Smart-Door-Lock-IoT/api/features/control/dto/requests"
 	"github.com/Smart-Door-Lock-IoT/api/features/control/dto/responses"
 	httputils "github.com/Smart-Door-Lock-IoT/api/pkg/http/utils"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
@@ -48,14 +49,14 @@ func (s *Control) TriggerBuzzerAlarm() (*responses.TriggerBuzzerAlarmResponse, *
 	}
 }
 
-func (s *Control) TriggerFingerprintMode() (
+func (s *Control) TriggerFingerprintMode(req requests.TriggerFingerprintModeRequest) (
 	*responses.TriggerFingerprintModeResponse, *httputils.Error,
 ) {
 	if token := (*s.mqttClient).Publish(
 		"smart-door-lock-iot/fingerprint-mode",
 		2,
 		false,
-		"triggered",
+		req.Slot,
 	); token.WaitTimeout(time.Second*5) && token.Error() != nil {
 		return nil, httputils.NewInternalError(token.Error())
 	} else {
@@ -65,12 +66,14 @@ func (s *Control) TriggerFingerprintMode() (
 	}
 }
 
-func (s *Control) TriggerRFIDMode() (*responses.TriggerRFIDModeResponse, *httputils.Error) {
+func (s *Control) TriggerRFIDMode(req requests.TriggerRFIDModeRequest) (
+	*responses.TriggerRFIDModeResponse, *httputils.Error,
+) {
 	if token := (*s.mqttClient).Publish(
 		"smart-door-lock-iot/rfid-mode",
 		2,
 		false,
-		"triggered",
+		req.Slot,
 	); token.WaitTimeout(time.Second*5) && token.Error() != nil {
 		return nil, httputils.NewInternalError(token.Error())
 	} else {

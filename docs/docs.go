@@ -89,11 +89,52 @@ const docTemplate = `{
                     "Control"
                 ],
                 "operationId": "TriggerFingerprintMode",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/TriggerFingerprintModeRequest"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/TriggerFingerprintModeResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/control/logs": {
+            "get": {
+                "tags": [
+                    "Control"
+                ],
+                "operationId": "GetAllLogs",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/GetAllLogsResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Control"
+                ],
+                "operationId": "DeleteAllLogs",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DeleteAllLogsResponse"
                         }
                     }
                 }
@@ -121,6 +162,17 @@ const docTemplate = `{
                     "Control"
                 ],
                 "operationId": "TriggerRFIDMode",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/TriggerRFIDModeRequest"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -135,6 +187,9 @@ const docTemplate = `{
     "definitions": {
         "ChangePinRequest": {
             "type": "object",
+            "required": [
+                "new_pin"
+            ],
             "properties": {
                 "new_pin": {
                     "type": "string"
@@ -143,22 +198,67 @@ const docTemplate = `{
         },
         "ChangePinResponse": {
             "type": "object",
+            "required": [
+                "message"
+            ],
             "properties": {
                 "message": {
                     "type": "string"
+                }
+            }
+        },
+        "DeleteAllLogsResponse": {
+            "type": "object",
+            "required": [
+                "message"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "GetAllLogsResponse": {
+            "type": "object",
+            "required": [
+                "logs"
+            ],
+            "properties": {
+                "logs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/domains.Log"
+                    }
                 }
             }
         },
         "TriggerBuzzerAlarmResponse": {
             "type": "object",
+            "required": [
+                "message"
+            ],
             "properties": {
                 "message": {
                     "type": "string"
                 }
             }
         },
+        "TriggerFingerprintModeRequest": {
+            "type": "object",
+            "required": [
+                "slot"
+            ],
+            "properties": {
+                "slot": {
+                    "type": "integer"
+                }
+            }
+        },
         "TriggerFingerprintModeResponse": {
             "type": "object",
+            "required": [
+                "message"
+            ],
             "properties": {
                 "message": {
                     "type": "string"
@@ -167,14 +267,31 @@ const docTemplate = `{
         },
         "TriggerOpenDoorResponse": {
             "type": "object",
+            "required": [
+                "message"
+            ],
             "properties": {
                 "message": {
                     "type": "string"
                 }
             }
         },
+        "TriggerRFIDModeRequest": {
+            "type": "object",
+            "required": [
+                "slot"
+            ],
+            "properties": {
+                "slot": {
+                    "type": "integer"
+                }
+            }
+        },
         "TriggerRFIDModeResponse": {
             "type": "object",
+            "required": [
+                "message"
+            ],
             "properties": {
                 "message": {
                     "type": "string"
@@ -183,6 +300,9 @@ const docTemplate = `{
         },
         "ValidatePinRequest": {
             "type": "object",
+            "required": [
+                "pin"
+            ],
             "properties": {
                 "pin": {
                     "type": "string"
@@ -191,9 +311,31 @@ const docTemplate = `{
         },
         "ValidatePinResponse": {
             "type": "object",
+            "required": [
+                "message"
+            ],
             "properties": {
                 "message": {
                     "type": "string"
+                }
+            }
+        },
+        "domains.Log": {
+            "type": "object",
+            "required": [
+                "device_name",
+                "id",
+                "status"
+            ],
+            "properties": {
+                "device_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "boolean"
                 }
             }
         }

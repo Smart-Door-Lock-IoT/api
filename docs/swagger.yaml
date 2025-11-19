@@ -3,41 +3,100 @@ definitions:
     properties:
       new_pin:
         type: string
+    required:
+    - new_pin
     type: object
   ChangePinResponse:
     properties:
       message:
         type: string
+    required:
+    - message
+    type: object
+  DeleteAllLogsResponse:
+    properties:
+      message:
+        type: string
+    required:
+    - message
+    type: object
+  GetAllLogsResponse:
+    properties:
+      logs:
+        items:
+          $ref: '#/definitions/domains.Log'
+        type: array
+    required:
+    - logs
     type: object
   TriggerBuzzerAlarmResponse:
     properties:
       message:
         type: string
+    required:
+    - message
+    type: object
+  TriggerFingerprintModeRequest:
+    properties:
+      slot:
+        type: integer
+    required:
+    - slot
     type: object
   TriggerFingerprintModeResponse:
     properties:
       message:
         type: string
+    required:
+    - message
     type: object
   TriggerOpenDoorResponse:
     properties:
       message:
         type: string
+    required:
+    - message
+    type: object
+  TriggerRFIDModeRequest:
+    properties:
+      slot:
+        type: integer
+    required:
+    - slot
     type: object
   TriggerRFIDModeResponse:
     properties:
       message:
         type: string
+    required:
+    - message
     type: object
   ValidatePinRequest:
     properties:
       pin:
         type: string
+    required:
+    - pin
     type: object
   ValidatePinResponse:
     properties:
       message:
         type: string
+    required:
+    - message
+    type: object
+  domains.Log:
+    properties:
+      device_name:
+        type: string
+      id:
+        type: integer
+      status:
+        type: boolean
+    required:
+    - device_name
+    - id
+    - status
     type: object
 info:
   contact: {}
@@ -90,11 +149,37 @@ paths:
   /api/v1/control/fingerprint-mode:
     post:
       operationId: TriggerFingerprintMode
+      parameters:
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/TriggerFingerprintModeRequest'
       responses:
         "200":
           description: OK
           schema:
             $ref: '#/definitions/TriggerFingerprintModeResponse'
+      tags:
+      - Control
+  /api/v1/control/logs:
+    delete:
+      operationId: DeleteAllLogs
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DeleteAllLogsResponse'
+      tags:
+      - Control
+    get:
+      operationId: GetAllLogs
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/GetAllLogsResponse'
       tags:
       - Control
   /api/v1/control/open-door:
@@ -110,6 +195,13 @@ paths:
   /api/v1/control/rfid-mode:
     post:
       operationId: TriggerRFIDMode
+      parameters:
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/TriggerRFIDModeRequest'
       responses:
         "200":
           description: OK
