@@ -52,5 +52,5 @@ func (r *Log) GetAllLatest() (*[]domains.Log, error) {
 }
 
 func (r *Log) DeleteAll() error {
-	return r.db.Unscoped().Delete(&models.Log{}).Error
+	return r.db.Where(true).Unscoped().Delete(&models.Log{}).Error
 }
